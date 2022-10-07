@@ -5,9 +5,17 @@ public class Main {
       MyLinkedList ml = new MyLinkedList();
       
       // Test append
-      ml.append(1);
+      ml.append(100);
+      ml.append(2000);
+      ml.append(3000);
       ml.print();
-      ml.append(2);
+
+      // Test inserAt
+      ml.insertAt(1, 333);
+      ml.append(4000);
+      ml.print();
+
+      ml.insertAt(3, 444);
       ml.print();
    }
 }

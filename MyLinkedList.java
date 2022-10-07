@@ -9,20 +9,51 @@ public class MyLinkedList implements MyList {
 
 	public void append(Object o) {
 		Node newNode = new Node();
+		newNode.data = o; // set value
+		newNode.next = null; // set pointer
 
-		if (size == 0 && head == null) {
+		if (head == null) {
 			head = newNode;
-		} else {
+		} else if (head.next == null) {
 			head.next = newNode;
-		}
+		} else {
 
-		newNode.data = o;
-		newNode.next = null;
+			Node lastNode = head.next;
+			while (lastNode.next != null) {
+				lastNode = lastNode.next;
+			} 
+
+			lastNode.next = newNode;
+		}
+		
 		size += 1;
 	}
 
 	public void insertAt(int index, Object o) throws NoSuchElementException {
+		if (index < 0 || index > size) {
+			throw new NoSuchElementException();
+		}
 
+		Node previousNode = head;
+		
+		int i = 0;
+		while(previousNode.next != null) {
+			Node nextNode = previousNode.next;
+
+			if(index == i && nextNode != null) {
+				Node newNode = new Node();
+				newNode.data = o;
+
+				// Reorganize pointers between node
+				previousNode.next = newNode;
+				newNode.next = nextNode;
+			}
+
+			previousNode = nextNode;
+			i++;
+		}
+	
+		size += 1;
 	}
 
 	public void removeAt(int index) throws NoSuchElementException {
