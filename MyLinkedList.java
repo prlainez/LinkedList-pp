@@ -61,7 +61,22 @@ public class MyLinkedList implements MyList {
 	}
 
 	public Object getAt(int index) throws NoSuchElementException {
-		return new Object();
+		if (index < 0 || index >= size) {
+			throw new NoSuchElementException();
+		}
+
+		MyListIterator it = this.getIterator();
+		Object objectFound = null;
+		int counter = 0;
+
+		while (it.hasNext() && objectFound == null) {
+			if (counter == index) {
+				objectFound = it.next();
+			}
+			counter++;
+		}
+
+		return objectFound;
 	}
 
 	public int getSize() {

@@ -17,5 +17,9 @@ public class Main {
 
       ml.insertAt(3, 444);
       ml.print();
+
+      // Test getAt
+      assert (int) ml.getAt(0) == 100;
+      assert (int) ml.getAt(5) == 4000;
    }
 }
