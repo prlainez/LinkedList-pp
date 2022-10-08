@@ -21,11 +21,11 @@ public class MyLinkedList implements MyList {
 			Node lastNode = head.next;
 			while (lastNode.next != null) {
 				lastNode = lastNode.next;
-			} 
+			}
 
 			lastNode.next = newNode;
 		}
-		
+
 		size += 1;
 	}
 
@@ -35,12 +35,12 @@ public class MyLinkedList implements MyList {
 		}
 
 		Node previousNode = head;
-		
+
 		int i = 0;
-		while(previousNode.next != null) {
+		while (previousNode.next != null) {
 			Node nextNode = previousNode.next;
 
-			if(index == i && nextNode != null) {
+			if (index == i && nextNode != null) {
 				Node newNode = new Node();
 				newNode.data = o;
 
@@ -52,12 +52,48 @@ public class MyLinkedList implements MyList {
 			previousNode = nextNode;
 			i++;
 		}
-	
+
 		size += 1;
 	}
 
 	public void removeAt(int index) throws NoSuchElementException {
+		if (index < 0 || index >= size) {
+			throw new NoSuchElementException();
+		}
 
+		// If size 1 simply remove head
+		if (head.next == null) {
+			head = null;
+			size -= 1;
+			return;
+		}
+
+		// If removing head
+		if (index == 0) {
+			head = head.next;
+			size -= 1;
+			return;
+		}
+
+		// If node to be removed between edges
+		Node prevNode = head;
+		int i = 1;
+
+		while (prevNode.next != null) {
+			Node nextNode = prevNode.next;
+
+			if (index == i) {
+				nextNode = nextNode.next;
+
+				// Reorganize pointers between nodes
+				prevNode.next = nextNode;
+				size -= 1;
+				break;
+			}
+
+			prevNode = nextNode;
+			i++;
+		}
 	}
 
 	public Object getAt(int index) throws NoSuchElementException {
@@ -87,9 +123,9 @@ public class MyLinkedList implements MyList {
 		MyListIterator it = this.getIterator();
 		System.out.print("MyLinkedList => [");
 
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			Object actual = it.next();
-			System.out.printf("%d",actual);
+			System.out.printf("%d", actual);
 
 			if (it.hasNext()) {
 				System.out.print(" ,");
