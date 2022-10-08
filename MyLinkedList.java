@@ -34,6 +34,25 @@ public class MyLinkedList implements MyList {
 			throw new NoSuchElementException();
 		}
 
+		// If size 0 simply assign head
+		if (index == 0 && head == null) {
+			Node newNode = new Node();
+			newNode.data = o;
+			newNode.next = null;
+			head = newNode;
+			size += 1;
+			return;
+		}
+
+		if (index ==0 && head != null) {
+			Node newNode = new Node();
+			newNode.data = o;
+			newNode.next = head;
+			head = newNode;
+			size += 1;
+			return;
+		}
+
 		Node previousNode = head;
 
 		int i = 0;
@@ -108,7 +127,9 @@ public class MyLinkedList implements MyList {
 		while (it.hasNext() && objectFound == null) {
 			if (counter == index) {
 				objectFound = it.next();
+				break;
 			}
+			it.next();
 			counter++;
 		}
 
